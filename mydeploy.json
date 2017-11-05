@@ -1,0 +1,27 @@
+{
+
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+  },
+  "variables": {
+  },
+  "resources": [
+    {
+      "name": "[concat('Data Lake', uniqueString(resourceGroup().id))]",
+      "type": "Microsoft.DataLakeStore/accounts",
+      "apiVersion": "2016-11-01",
+      "sku": {
+        "name": "Data Lake Test"
+      },
+      "kind": "Data Lake",
+      "location": "East US 2",
+      "tags": {},
+      "properties": {}
+    }
+  ],
+  "outputs": {}
+
+}
+
+
