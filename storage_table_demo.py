@@ -2,7 +2,7 @@ import string
 import random
 import time
 import json
-import azurerm
+#import azurerm
 
 from azure.storage.table import TableService, Entity
 
