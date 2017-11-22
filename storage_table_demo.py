@@ -53,9 +53,9 @@ storageaccount_keys = json.loads(response.text)
 # Create the Table with the Azure Storage SDK and the access key obtained in the previous step
 table_service = TableService(
     account_name=storageaccount_name, account_key='Bk5ar/6mKz/74JvgLNnw6obZEkL6Jnsy2TuR4wc8qY/YX/N66xvNjRMuU+BTNr5pW579DaymVhKN/4s3urewFg==')
-response = table_service.create_table('itemstable')
+response = table_service.create_table('itemstable2')
 if response == True:
-    print('Storage Table: itemstable created successfully.\n')
+    print('Storage Table: itemstable2 created successfully.\n')
 else:
     print('Error creating Storage Table.\n')
 
@@ -81,7 +81,7 @@ cars.model = 'Galant'
 cars.year = 2002
 cars.color = 'Silver'
 cars.price = 2400
-table_service.insert_entity('itemstable', cars)
+table_service.insert_entity('itemstable2', cars)
 print('Created entry for Mitsubishi...')
 
 cars = Entity()
@@ -92,7 +92,7 @@ cars.model = 'Civic'
 cars.year = 2013
 cars.color = 'Charcoal'
 cars.price = 14000
-table_service.insert_entity('itemstable', cars)
+table_service.insert_entity('itemstable2', cars)
 print('Created entry for Honda...')
 
 # A partition key tracks how like-minded entries in the Table are created and queried.
@@ -108,7 +108,7 @@ coffee.flavor = 'French Roast'
 coffee.milktype = 'Soy or almond'
 coffee.size = 'Small'
 coffee.price = 4.50
-table_service.insert_entity('itemstable', coffee)
+table_service.insert_entity('itemstable2', coffee)
 print('Created entry for Starbucks...\n')
 time.sleep(1)
 
@@ -121,7 +121,7 @@ coffee.flavor = 'Costa Rica Aurora'
 coffee.milktype = 'Soy or almond'
 coffee.size = 'Small'
 coffee.price = 4.50
-table_service.insert_entity('itemstable', coffee)
+table_service.insert_entity('itemstable2', coffee)
 print('Created entry for Peets Coffee...\n')
 time.sleep(1)
 
@@ -132,12 +132,12 @@ print('With some data in our Azure Storage Table, we can query the data.\nLet\'s
 raw_input('Press Enter to continue...')
 # In this query, you define the partition key to search within, and then which properties to retrieve
 # Structuring queries like this improves performance as your application scales up and keeps the queries efficient
-items = table_service.query_entities('itemstable', filter="PartitionKey eq 'cardealership'", select='make,model,year,color,price')
+items = table_service.query_entities('itemstable2', filter="PartitionKey eq 'cardealership'", select='make,model,year,color,price')
 for item in items:
     print('Make: ' + item.make)
     print('Price: ' + str(item.price) + '\n')
 
-items = table_service.query_entities('itemstable', filter="PartitionKey eq 'coffeeshop'", select='brand,flavor,milktype,size,price')
+items = table_service.query_entities('itemstable2', filter="PartitionKey eq 'coffeeshop'", select='brand,flavor,milktype,size,price')
 for item in items:
     print('Brand: ' + item.brand)
     print('Price: ' + str(item.price) + '\n')
@@ -151,9 +151,9 @@ time.sleep(1)
 print('\nThis is a basic example of how Azure Storage Tables behave like a database.\nTo keep things tidy, let\'s clean up the Azure Storage resources we created.')
 raw_input('Press Enter to continue...')
 
-response = table_service.delete_table('itemstable')
+response = table_service.delete_table('itemstable2')
 if response == True:
-    print('Storage table: itemstable deleted successfully.')
+    print('Storage table: itemstable2 deleted successfully.')
 else:
     print('Error deleting Storage Table')
 
