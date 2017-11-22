@@ -2,7 +2,7 @@ import string
 import random
 import time
 import json
-#import azurerm
+import azurerm
 
 from azure.storage.table import TableService, Entity
 
@@ -11,28 +11,30 @@ auth_token = azurerm.get_access_token_from_cli()
 subscription_id = azurerm.get_subscription_from_cli()
 
 # Define variables with random resource group and storage account names
-resourcegroup_name = 'NS'+''.join(random.choice(string.ascii_lowercase + string.digits) for _ in range(6))
-storageaccount_name = 'NS'+''.join(random.choice(string.ascii_lowercase + string.digits) for _ in range(6))
-location = 'eastus'
+resourcegroup_name = 'RG1'
+#'NS'+''.join(random.choice(string.ascii_lowercase + string.digits) for _ in range(6))
+storageaccount_name = 'nikistorage11202017'
+#'NS'+''.join(random.choice(string.ascii_lowercase + string.digits) for _ in range(6))
+#location = 'eastus'
 
 ###
 # Create the a resource group for our demo
 # We need a resource group and a storage account. A random name is generated, as each storage account name must be globally unique.
 ###
-response = azurerm.create_resource_group(
-    auth_token, subscription_id, resourcegroup_name, location)
-if response.status_code == 200 or response.status_code == 201:
-    print('Resource group: ' + resourcegroup_name + ' created successfully.')
-else:
-    print('Error creating resource group')
+# response = azurerm.create_resource_group(
+#   auth_token, subscription_id, resourcegroup_name, location)
+# if response.status_code == 200 or response.status_code == 201:
+#    print('Resource group: ' + resourcegroup_name + ' created successfully.')
+# else:
+#    print('Error creating resource group')
 
 # Create a storage account for our demo
-response = azurerm.create_storage_account(auth_token, subscription_id, resourcegroup_name, storageaccount_name,  location, storage_type='Standard_LRS')
-if response.status_code == 202:
-    print('Storage account: ' + storageaccount_name + ' created successfully.')
-    time.sleep(2)
-else:
-    print('Error creating storage account')
+#response = azurerm.create_storage_account(auth_token, subscription_id, resourcegroup_name, storageaccount_name,  location, storage_type='Standard_LRS')
+#if response.status_code == 202:
+#    print('Storage account: ' + storageaccount_name + ' created successfully.')
+#    time.sleep(2)
+#else:
+#    print('Error creating storage account')
 
 
 ###
@@ -46,7 +48,8 @@ raw_input('Press Enter to continue...')
 
 response = azurerm.get_storage_account_keys(auth_token, subscription_id, resourcegroup_name, storageaccount_name)
 storageaccount_keys = json.loads(response.text)
-storageaccount_primarykey = storageaccount_keys['keys'][0]['value']
+storageaccount_primarykey = storageaccount_keys['Bk5ar/6mKz/74JvgLNnw6obZEkL6Jnsy2TuR4wc8qY/YX/N66xvNjRMuU+BTNr5pW579DaymVhKN/4s3urewFg==']
+#[0]['value']
 
 # Create the Table with the Azure Storage SDK and the access key obtained in the previous step
 table_service = TableService(
