@@ -48,12 +48,11 @@ raw_input('Press Enter to continue...')
 
 response = azurerm.get_storage_account_keys(auth_token, subscription_id, resourcegroup_name, storageaccount_name)
 storageaccount_keys = json.loads(response.text)
-storageaccount_primarykey = storageaccount_keys['Bk5ar/6mKz/74JvgLNnw6obZEkL6Jnsy2TuR4wc8qY/YX/N66xvNjRMuU+BTNr5pW579DaymVhKN/4s3urewFg==']
-#[0]['value']
+#storageaccount_primarykey = storageaccount_keys['keys'][0]['value']
 
 # Create the Table with the Azure Storage SDK and the access key obtained in the previous step
 table_service = TableService(
-    account_name=storageaccount_name, account_key=storageaccount_primarykey)
+    account_name=storageaccount_name, account_key='Bk5ar/6mKz/74JvgLNnw6obZEkL6Jnsy2TuR4wc8qY/YX/N66xvNjRMuU+BTNr5pW579DaymVhKN/4s3urewFg==')
 response = table_service.create_table('itemstable')
 if response == True:
     print('Storage Table: itemstable created successfully.\n')
@@ -158,9 +157,9 @@ if response == True:
 else:
     print('Error deleting Storage Table')
 
-response = azurerm.delete_resource_group(
-    auth_token, subscription_id, resourcegroup_name)
-if response.status_code == 202:
-    print('Resource group: ' + resourcegroup_name + ' deleted successfully.')
-else:
-    print('Error deleting resource group.')
+#response = azurerm.delete_resource_group(
+#    auth_token, subscription_id, resourcegroup_name)
+#if response.status_code == 202:
+#    print('Resource group: ' + resourcegroup_name + ' deleted successfully.')
+#else:
+#    print('Error deleting resource group.')
